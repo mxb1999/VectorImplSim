@@ -22,7 +22,6 @@ void track(Ray ray, int* count)
       deltaX = x-dx*currX;
       deltaZ = z-dz*currZ;
       ray.addPath(currX, currZ);
-
       count[currX*nz+currZ]++;
     //If the ray spends multiple iterations in the same cell
     }else
@@ -50,8 +49,13 @@ void getPaths(Ray* rays)
   {
     beam1[i] = new int[nz];
     beam2[i] = new int[nz];
+  }
+  for(int i = 0; i < nrays; i++)
+  {
+
     crossing* path1 = rays[i].getPath();
     crossing* path2 = rays[i+nrays].getPath();
+
     for(int j = 0; j < numstored;j++)
     {
       #pragma omp atomic update
@@ -60,6 +64,7 @@ void getPaths(Ray* rays)
       beam2[getX(&path2[j])][getZ(&path2[j])]++;
     }
   }
+  updateH5(beam1, (char*)"Beam 1 Trajectory", beam2, (char*)"Beam 2 Trajectory");
 }
 //void get_track
 void init_Track()
@@ -92,4 +97,6 @@ void init_Track()
     rays[nrays+i] = *(new Ray(k, pos, dphase*i, exp(-1*pow(pow(dphase*i/sigma,2.0),4.0/2.0))));
     track(rays[nrays+i], count[1]);
   }
+
+  getPaths(rays);
 }

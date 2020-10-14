@@ -16,6 +16,7 @@ crossing* newCrossing(int x, int z)
 }
 int getX(crossing* cross)
 {
+
   if(!cross)
   {
     return 0;
@@ -48,8 +49,6 @@ void addMag(crossing* cross,double inc)
 }
 Ray::~Ray()
 {
-  if(path)
-    delete []path;
 };
 Ray::Ray()
 {
@@ -104,7 +103,7 @@ double Ray::getPow()
 };
 crossing* Ray::getLast()
 {
-  return &path[currInd];
+  return &this->path[this->currInd];
 }
 void Ray::addPath(int x, int z)
 {
@@ -115,5 +114,4 @@ void Ray::addPath(int x, int z)
   }
   this->currInd++;
   this->path[this->currInd] = *newCrossing(x,z);
-
 }

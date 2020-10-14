@@ -2,7 +2,7 @@
 #define ICF
   #include "Ray.hpp"
   #include <cstdlib>
-  //#include "H5Cpp.h"
+  #include "H5Cpp.h"
   #include <Python.h>
   //#include <mpi/mpi.h>
   #include <omp.h>
@@ -35,4 +35,5 @@
   */
   void init_Track();
   void sampleIntensity();
+  void updateH5(void* arr1, char* arrName1, void* arr2, char* arrName2);
 #endif
