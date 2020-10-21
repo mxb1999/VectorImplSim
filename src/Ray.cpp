@@ -14,20 +14,39 @@ crossing* newCrossing(int x, int z)
   result->mag = 0.0;
   return result;
 }
+
 int getX(crossing* cross)
 {
-
-  if(!cross)
+  if(cross == NULL)
   {
-    return 0;
+    std::cout << "NULL Attempt" << std::endl;
+    return -1;
   }
   return cross->x;
+}
+int Ray::getRayX(int loc)
+{
+  if(loc < currInd)
+  {
+    return getX(&path[loc]);
+  }
+  //std::cout << "LOC:: " << loc << "  ::  currInd: " << currInd << std::endl;
+
+  return -1;
+}
+int Ray::getRayZ(int loc)
+{
+  if(loc < currInd)
+  {
+    return getZ(&path[loc]);
+  }
+  return -1;
 }
 int getZ(crossing* cross)
 {
   if(!cross)
   {
-    return 0;
+    return -1;
   }
   return cross->z;
 }
@@ -101,6 +120,10 @@ double Ray::getPow()
 {
   return pow;
 };
+int Ray::getInd()
+{
+  return currInd;
+}
 crossing* Ray::getLast()
 {
   return &this->path[this->currInd];

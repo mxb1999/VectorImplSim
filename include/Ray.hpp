@@ -35,6 +35,9 @@
     void setIntensity(double newInten);
     //accessor functions
     double* getKin();
+    int getRayX(int loc);
+    int getRayZ(int loc);
+    int getInd();
     double* getPos();
     crossing* getLast();
     double getPhase();

@@ -33,6 +33,8 @@
         - Pass rays back to host -> initialize intensity sampling array
         - Pass sampling arrays and rays from compute nodes up to host node
   */
+  extern int** beam1;
+  extern int** beam2;
   void init_Track();
   void sampleIntensity();
   void updateH5(void* arr1, char* arrName1, void* arr2, char* arrName2);

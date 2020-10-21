@@ -8,8 +8,8 @@ SRC_DIR=src
 HDIR=src/h5
 OPDIR=output
 
-H5FLAGS = -g -Wall -Werror -fopenmp -Iinclude -MMD -MP -lm#Compiler flags for h5c++
-CPPFLAGS= -g  -Wall -std=c++11 -Werror -fopenmp -MMD -MP -lm #compiler flags for g++
+H5FLAGS = -g -Wall -Werror -fopenmp -Og -Iinclude -MMD -MP -lm#Compiler flags for h5c++
+CPPFLAGS= -g  -Wall -std=c++11 -Og -Werror -fopenmp -MMD -MP -lm #compiler flags for g++
 PYINC = -I/usr/include/python3.8 -lpython3.8
 CUDAINC = -I/usr/local/cuda-11.1/include
 H5INC = -I/usr/include/hdf5/serial/
@@ -49,6 +49,11 @@ reset:
 	make clean
 	make
 
+.phony: run
+
+run:
+	make
+	./implSim
 
 .phony: install
 

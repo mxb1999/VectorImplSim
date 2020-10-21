@@ -1,7 +1,6 @@
 #include "icf.hpp"
 using namespace H5;
 
-
 //determines the type based off of a user string
 int determineType(std::string type)
 {
@@ -249,14 +248,13 @@ void updateH5(void* arr1, char* arrName1, void* arr2, char* arrName2)
 
   //Output arrays to be plotted in Python using included script'
   //Core output arrays
-  writeArr(arr1, 0, store, arrName1, 2, new int[2]{nz,nx});//original electric field
-  writeArr(arr2, 0, store, arrName2, 2, new int[2]{nz,nx});//original electric field
+  writeArr(beam1, 1, store, arrName1, 2, new int[2]{nz,nx});//original electric field
+  writeArr(beam2, 1, store, arrName2, 2, new int[2]{nz,nx});//original electric field
 
   store->close();//close hdf file
   if(printUpdates)
   {
     std::cout << "Write Finished" << std::endl;
     std::cout << "File Closed" << std::endl;
-  }
-
+  }  
 }
