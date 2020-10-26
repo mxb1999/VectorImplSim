@@ -43,8 +43,8 @@ const double omega = 2*pi*freq;	// frequency of light, in rad/s
 const double ncrit = 1e-6*(pow(omega,2.0)*me*e0/pow(ec,2.0));
 
 //Grid Constants for X by Z grid
-const int nx=100; const float xmin = -5.0e-4; const float xmax=5.0e-4; const float dx = (xmax-xmin)/(nx-1);
-const int nz=100; const float zmin = -5.0e-4; const float zmax=5.0e-4; const float dz = (zmax-zmin)/(nz-1);
+const int nx=401; const float xmin = -5.0e-4; const float xmax=5.0e-4; const float dx = (xmax-xmin)/(nx-1);
+const int nz=401; const float zmin = -5.0e-4; const float zmax=5.0e-4; const float dz = (zmax-zmin)/(nz-1);
 
 //Constants pertaining to iteration and parallelization
 const double maxIncrement = 0.2;
@@ -59,7 +59,7 @@ const double converge = 1e-6;
 
 //Beam/Ray Tracking parameters
 const int nbeams = 2; //number of interacting beams
-const int rays_per_zone = 5; //Rays launched per grid zone
+const int rays_per_zone = 30; //Rays launched per grid zone
 const double intensity = 1.0e17; // W/cm^2
 const float courant_mult = 0.2; // 0.37 // 0.25 // 0.36 // 0.22; Multiplier used to determine time stepping
 const double uray_mult = intensity*(courant_mult)*pow(double(rays_per_zone),-1.0); //multiplier which determines intensity deposited in a given zone
@@ -67,7 +67,7 @@ const double offset = 0;//Determines offset of beam along axis
 const double beam_max_z = 3.0e-4; const double beam_min_z = -3.0e-4;//determines the width of the beam
 const int nrays= int(rays_per_zone*(beam_max_z-beam_min_z)/dz)+0;//number of rays per beam
 const int stepsPerCell = 5;
-const double dt = nx*(xmax-xmin)/(c*stepsPerCell);//nx*(xmax-xmin)/c*1/stepsPerCell;//courant_mult*fmin(dx,dz)/c;//time stepping
+const double dt = (xmax-xmin)/(nx*c*stepsPerCell);//nx*(xmax-xmin)/c*1/stepsPerCell;//courant_mult*fmin(dx,dz)/c;//time stepping
 const int nt=int(pow(courant_mult,-1.0)*fmax(nx,nz)*2.0)+1;//number of time steps to track for a given ray
 const int numstored = nx*6;//number of rays stored per grid zone
 const int ncrossings = nx * 3;//max number of ray crossings that can be stored per ray

@@ -19,7 +19,7 @@ INC = -Iinclude  -I/src/include
 LIBS = 	$(INC) $(MPIInc) $(PYINC) $(CUDAINC) $(H5INC) #Library Dependecies
 HLIBS =  -I/usr/include/hdf5/serial #hdf5 libraries
 #CUDALIBS =
-_COBJ = Ray.o main.o launchRays.o#Core C++ files being used
+_COBJ = Ray.o main.o launchRays.o solveField.o#Core C++ files being used
 COBJ = $(patsubst %,$(ODIR)/%,$(_COBJ))
 
 _HOBJ = hdf5writer.o #HDF5 related files

@@ -4,6 +4,7 @@
   #include <cstdlib>
   #include "H5Cpp.h"
   #include <Python.h>
+  #include <chrono>
   //#include <mpi/mpi.h>
   #include <omp.h>
   #include <cuda_runtime.h>
@@ -33,9 +34,10 @@
         - Pass rays back to host -> initialize intensity sampling array
         - Pass sampling arrays and rays from compute nodes up to host node
   */
-  extern int** beam1;
-  extern int** beam2;
+  extern int** count;
   void init_Track();
   void sampleIntensity();
+  double** calculateForce();
+  double* eDensity();
   void updateH5(void* arr1, char* arrName1, void* arr2, char* arrName2);
 #endif

@@ -58,13 +58,14 @@ double getMag(crossing* cross)
   }
   return cross->mag;
 }
-void addMag(crossing* cross,double inc)
+int addMag(crossing* cross,double inc)
 {
   if(cross == NULL)
   {
-    return;
+    return -1;
   }
   cross->mag+=inc;
+  return 0;
 }
 Ray::~Ray()
 {
@@ -128,13 +129,14 @@ crossing* Ray::getLast()
 {
   return &this->path[this->currInd];
 }
-void Ray::addPath(int x, int z)
+int Ray::addPath(int x, int z)
 {
   if(this->currInd >= numstored-1)
   {
     printf("No further storage available in Ray path\n");
-    return;
+    return -1;
   }
-  this->currInd++;
   this->path[this->currInd] = *newCrossing(x,z);
+  this->currInd++;
+  return 0;
 }

@@ -265,16 +265,11 @@ def pltYorick(event):
     #plot countour of desired array
 def handle_keypress3D(event):
     plt.figure();
-    print("wadawdaw")
     path3 = '/'+var1.get()
-    set1 = np.linspace(-3e-4,3e-4,100)
-    set2 = np.linspace(-3e-4,3e-4,100)
+    set1 = np.linspace(-3e-4,3e-4,401)
+    set2 = np.linspace(-3e-4,3e-4,401)
     #set1, set2 = np.meshgrid(set1, set2)
     temp = np.array(implSim[path3][:])
-    for i in range(100):
-        for j in range(100):
-            if(temp[i][j] != 0):
-                print(temp[i][j])
     plt.contourf(set1,set2,temp, 100, cmap='nipy_spectral')
     plt.title(namer.get())
     plt.xlabel("z (cm)")
@@ -292,7 +287,6 @@ def handle_keypress2D(event):
     set1 = np.array(implSim[path1][:])
     set2 = np.array(implSim[path2][:])
     #set1, set2 = np.meshgrid(set1, set2)
-    print ("Hello")
     plt.plot(set1,set2)
     plt.title(namer.get())
     plt.xlabel(var1.get())

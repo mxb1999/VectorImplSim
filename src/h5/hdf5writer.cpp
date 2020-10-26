@@ -248,13 +248,13 @@ void updateH5(void* arr1, char* arrName1, void* arr2, char* arrName2)
 
   //Output arrays to be plotted in Python using included script'
   //Core output arrays
-  writeArr(beam1, 1, store, arrName1, 2, new int[2]{nz,nx});//original electric field
-  writeArr(beam2, 1, store, arrName2, 2, new int[2]{nz,nx});//original electric field
+  writeArr(count, 1, store, arrName1, 2, new int[2]{nz,nx});//Ray paths
+
 
   store->close();//close hdf file
   if(printUpdates)
   {
     std::cout << "Write Finished" << std::endl;
     std::cout << "File Closed" << std::endl;
-  }  
+  }
 }

@@ -15,7 +15,7 @@
 
   double getMag(crossing* cross);
 
-  void addMag(crossing* cross,double inc);
+  int addMag(crossing* cross,double inc);
 
   class Ray
   {
@@ -42,7 +42,7 @@
     crossing* getLast();
     double getPhase();
     double getPow();
-    void addPath(int x, int z);
+    int addPath(int x, int z);
     crossing* getPath();//pathLen, 2 -> store x and z coordinates for each grid square passed through
     void setIntensity();
 
