@@ -10,8 +10,8 @@ OPDIR=output
 
 H5FLAGS = -g -Wall -Werror -fopenmp -Og -Iinclude -MMD -MP -lm#Compiler flags for h5c++
 CPPFLAGS= -g  -Wall -std=c++11 -Og -Werror -fopenmp -MMD -MP -lm #compiler flags for g++
-PYINC = -I/usr/include/python3.8 -lpython3.8
-CUDAINC = -I/usr/local/cuda-11.1/include
+PYINC = -I/usr/include/python3.9 -lpython3.9
+CUDAINC = -I/usr/local/cuda-11.2/include -L/opt/cuda
 H5INC = -I/usr/include/hdf5/serial/
 MPIInc =   -I/usr/include/x86_64-linux-gnu/mpi -L/usr/lib/x86_64-linux-gnu/openmpi/lib
 INC = -Iinclude  -I/src/include

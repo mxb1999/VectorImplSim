@@ -2,12 +2,16 @@
 #define ICF
   #include "Ray.hpp"
   #include <cstdlib>
+  #include <forward_list>
   #include "H5Cpp.h"
   #include <Python.h>
   #include <chrono>
+  #include "simConst.hpp"
+  //#include "LinkedList.h"
   //#include <mpi/mpi.h>
   #include <omp.h>
   #include <cuda_runtime.h>
+
   /*Overarching software structure:
   Most efficient implementation of ray location storage?
   Needs::
@@ -34,7 +38,21 @@
         - Pass rays back to host -> initialize intensity sampling array
         - Pass sampling arrays and rays from compute nodes up to host node
   */
+
+  /*
+    Store rays in a directed graph after plotting paths. When updating CBET, iteratively start with different ray
+
+  */
+  typedef struct
+  {
+    Ray* rays[2];
+    int x;
+    int z;
+    double delta;
+  } intersection;
+
   extern int** count;
+  extern double* mult;
   void init_Track();
   void sampleIntensity();
   double** calculateForce();

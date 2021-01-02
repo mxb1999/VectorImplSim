@@ -3,9 +3,10 @@
 #ifndef RAY
   struct crossing
   {
-    double mag;
     int x;
     int z;
+    float mag;//magnitude of ray displacement vector in sector
+    int flags;//determine which side of zone the ray entered in/exited
   };
   crossing* newCrossing(int x, int z);
 
@@ -14,25 +15,27 @@
   int getZ(crossing* cross);
 
   double getMag(crossing* cross);
+  double getIn(crossing* cross);
+  double getOut(crossing* cross);
 
   int addMag(crossing* cross,double inc);
 
   class Ray
   {
   private:
-    double inten;
     crossing* path;
     double* k;
     double* pos;
     double phase;
     double pow;
-    int currInd;
+    float* mult;//multiplicative adjustment due
+    int last;
   public:
     Ray(double* k, double* p, double phase, double pow);
     Ray();
     ~Ray();
-    double getIntensity();
-    void setIntensity(double newInten);
+    double getIntensity(int crossing);
+    void setMultiplier(double newmult, int crossing);
     //accessor functions
     double* getKin();
     int getRayX(int loc);
@@ -42,7 +45,7 @@
     crossing* getLast();
     double getPhase();
     double getPow();
-    int addPath(int x, int z);
+    int addPath(int x, int z, int high, int side);
     crossing* getPath();//pathLen, 2 -> store x and z coordinates for each grid square passed through
     void setIntensity();
 

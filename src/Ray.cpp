@@ -3,7 +3,7 @@
 
 
 
-crossing* newCrossing(int x, int z)
+crossing* newCrossing(int x, int z, short xside , short zside)//xside = 0 for left, 1 for right, zside = 0 for bottom, zside = 1 for top
 {
   crossing *result = new crossing;
   if(!result){
@@ -12,9 +12,17 @@ crossing* newCrossing(int x, int z)
   result->x = x;
   result->z = z;
   result->mag = 0.0;
+  result->flags = xside + 2*zside;//encodes entry/exit info, along with mag, uniquely defines path. Exit encoded in the next two higher bits
   return result;
+};
+void addExit(crossing* cross, short xside, short zside)//same encoding method
+{
+  if(cross == NULL)
+  {
+    return;
+  }
+  cross->flags = 4*xside + 8*zside;
 }
-
 int getX(crossing* cross)
 {
   if(cross == NULL)
@@ -26,17 +34,17 @@ int getX(crossing* cross)
 }
 int Ray::getRayX(int loc)
 {
-  if(loc < currInd)
+  if(loc < last)
   {
     return getX(&path[loc]);
   }
-  //std::cout << "LOC:: " << loc << "  ::  currInd: " << currInd << std::endl;
+  //std::cout << "LOC:: " << loc << "  ::  last: " << last << std::endl;
 
   return -1;
 }
 int Ray::getRayZ(int loc)
 {
-  if(loc < currInd)
+  if(loc < last)
   {
     return getZ(&path[loc]);
   }
@@ -72,17 +80,17 @@ Ray::~Ray()
 };
 Ray::Ray()
 {
-  this->inten = 0;
+  this->mult = new float[nrays]{1};
   this->k = NULL;
   this->path = NULL;
   this->pos = NULL;
   this->phase = 0;
   this->pow = 0;
-  this->currInd = 0;
+  this->last = 0;
 }
 Ray::Ray(double* k, double* p, double phase, double pow)
 {
-  this->inten = intensity;
+  this->mult = new float[nrays]{1};
   this->k = k;
 
   this->path = new crossing[numstored];
@@ -90,16 +98,16 @@ Ray::Ray(double* k, double* p, double phase, double pow)
 
   this->phase = phase;
   this->pow = pow;
-  this->currInd = 0;
+  this->last = 0;
 }
 
-void Ray::setIntensity(double newInten)
+void Ray::setMultiplier(double newmult, int crossing)
 {
-  inten = newInten;
+  mult[crossing] = newmult;
 }
-double Ray::getIntensity()
+double Ray::getIntensity(int crossing)
 {
-  return inten;
+  return intensity*mult[crossing];
 };
 crossing* Ray::getPath()
 {
@@ -123,20 +131,20 @@ double Ray::getPow()
 };
 int Ray::getInd()
 {
-  return currInd;
+  return last;
 }
 crossing* Ray::getLast()
 {
-  return &this->path[this->currInd];
+  return &this->path[this->last];
 }
-int Ray::addPath(int x, int z)
+int Ray::addPath(int x, int z, int high, int side)
 {
-  if(this->currInd >= numstored-1)
+  if(this->last >= numstored-1)
   {
     printf("No further storage available in Ray path\n");
     return -1;
   }
-  this->path[this->currInd] = *newCrossing(x,z);
-  this->currInd++;
+  this->path[this->last] = *newCrossing(x,z, side, high);
+  this->last++;
   return 0;
 }

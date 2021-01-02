@@ -47,9 +47,11 @@ void track(Ray& ray, int** count, int raynum, double* eden, double** force)
     int cond = (prevX != currX || prevZ != currZ);
     if(prevX != currX || prevZ != currZ)
     {
+        int delx = (prevX < currX);
+        int delz = (prevZ < currZ);
       deltaX = x-dx*currX;
       deltaZ = z-dz*currZ;
-      ray.addPath(currX, currZ);
+      ray.addPath(currX, currZ, delx, delz);
       count[currX][currZ]++;
     //If the ray spends multiple iterations in the same cell
     }else
